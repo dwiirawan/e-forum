@@ -1,2 +1,7 @@
 go 1.23
 
+
+use (
+	./apps/api
+	./libs/api-core
+)
