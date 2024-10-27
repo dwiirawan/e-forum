@@ -1,12 +1,15 @@
 package main
 
-import "fmt"
-
-func Hello(name string) string {
-	result := "Hello " + name
-	return result
-}
+import (
+	"libs/api-core/database"
+	"libs/api-core/utils"
+)
 
 func main() {
-	fmt.Println(Hello("api"))
+
+	utils.LoadEnv(1)
+	DB := database.MigratorNew()
+
+	DB.DBUp()
+
 }
