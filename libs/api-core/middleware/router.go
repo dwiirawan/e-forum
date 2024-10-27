@@ -9,7 +9,7 @@ type Router struct {
 	Private fiber.Router
 }
 
-func New(app *fiber.App, authMid fiber.Handler) *Router {
+func NewRouter(app *fiber.App, authMid fiber.Handler) *Router {
 	pathRoot := "/api"
 	public := PublicRoute(app, pathRoot)
 	private := PrivateRoute(app, pathRoot, authMid)
