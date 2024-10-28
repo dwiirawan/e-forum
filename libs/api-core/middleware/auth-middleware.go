@@ -55,14 +55,12 @@ func (m WebAuthManager) AuthGuardMiddleware(ctx *fiber.Ctx) error {
 	} else {
 
 		var queryValue *string
-		if m.bearerTokenConfig != nil {
-			qValue := ctx.Query(m.bearerTokenConfig.QueryKey)
-			queryValue = &qValue
-		}
 
-		if queryValue != nil {
-			token = queryValue
-		}
+		qValue := ctx.Query(m.bearerTokenConfig.QueryKey)
+		queryValue = &qValue
+
+		token = queryValue
+
 	}
 
 	if token == nil {
@@ -74,7 +72,7 @@ func (m WebAuthManager) AuthGuardMiddleware(ctx *fiber.Ctx) error {
 		if err == fiber.ErrUnauthorized {
 			return err
 		}
-		return utils.NewError("WEB_AUTH_MANAGER__GetUserFromToken", err)
+		return utils.NewError("WEB_AUTH_MANAGER_GetUserFromToken", err)
 	}
 
 	ctx.Locals(USER_LOCAL_KEY, user)
@@ -113,4 +111,11 @@ func NewWebAuthManager(client WebAuthClient, opts *BearerTokenMiddlewareConfig) 
 	}
 
 	return &WebAuthManager{bearerTokenConfig: config, client: client}
+}
+
+func (m *WebAuthManager) User(ctx *fiber.Ctx) any {
+
+	appUser := ctx.Locals(USER_LOCAL_KEY)
+
+	return appUser
 }

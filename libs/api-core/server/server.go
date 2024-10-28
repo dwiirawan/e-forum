@@ -7,13 +7,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type Server struct {
+type WebServer struct {
 	App           *fiber.App
-	Auth          middleware.WebAuthManager
+	Auth          *middleware.WebAuthManager
 	RootApiPrefix string
 }
 
-func New(appName string) *Server {
+func New(appName string, auth *middleware.WebAuthManager) *WebServer {
 	app := fiber.New(fiber.Config{
 		Prefork:       true,
 		CaseSensitive: true,
@@ -22,21 +22,18 @@ func New(appName string) *Server {
 		AppName:       appName,
 	})
 
-	return &Server{
-		App: app,
+	return &WebServer{
+		App:  app,
+		Auth: auth,
 	}
 }
 
-func (s Server) PublicApi(prefix string) fiber.Router {
+func (s WebServer) PublicApi(prefix string) fiber.Router {
 	fullPrefix := fmt.Sprintf("/%s/%s", s.RootApiPrefix, prefix)
 	return PublicRoute(s.App, fullPrefix)
 }
 
-func (s Server) PrivateApi(prefix string) fiber.Router {
+func (s WebServer) PrivateApi(prefix string) fiber.Router {
 	fullPrefix := fmt.Sprintf("/%s/%s", s.RootApiPrefix, prefix)
-	return PrivateRoute(s.App, fullPrefix, s.Auth.AuthGuardMiddleware)
-}
-
-func (s Server) UseAuth(client middleware.WebAuthClient, bearerTokenConfig *middleware.BearerTokenMiddlewareConfig) {
-	s.Auth = *middleware.NewWebAuthManager(client, bearerTokenConfig)
+	return s.App.Group(fullPrefix, s.Auth.AuthGuardMiddleware)
 }
