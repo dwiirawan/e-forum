@@ -65,6 +65,7 @@ type Env struct {
 	APP_NAME    string
 	APP_PORT    int
 	APP_ENV     string
+	JWT_SECRET  string
 }
 
 func List() Env {
@@ -77,6 +78,7 @@ func List() Env {
 	appName := os.Getenv("APP_NAME")
 	appPort := os.Getenv("APP_PORT")
 	appEnv := os.Getenv("APP_ENV")
+	jwtSecret := os.Getenv("JWT_SECRET")
 
 	requiredEnvVars := map[string]string{
 		"DB_NAME":     dbName,
@@ -88,6 +90,7 @@ func List() Env {
 		"APP_NAME":    appName,
 		"APP_PORT":    appPort,
 		"APP_ENV":     appEnv,
+		"JWT_SECRET":  jwtSecret,
 	}
 
 	for envVar, value := range requiredEnvVars {
@@ -109,5 +112,6 @@ func List() Env {
 		APP_NAME:    appName,
 		APP_PORT:    appPortInt,
 		APP_ENV:     appEnv,
+		JWT_SECRET:  jwtSecret,
 	}
 }
