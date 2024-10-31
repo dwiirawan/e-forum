@@ -17,7 +17,7 @@ func main() {
 	webAuth := middleware.NewWebAuthManager(client, nil)
 
 	// init server
-	apps := server.New(listEnv.APP_NAME, webAuth)
+	apps := server.New(listEnv.APP_NAME, webAuth, listEnv)
 
 	apps.RootApiPrefix = "api/v1"
 
@@ -25,6 +25,9 @@ func main() {
 
 	// listen server
 	port := fmt.Sprintf(":%d", listEnv.APP_PORT)
-	apps.App.Listen(port)
+	err := apps.App.Listen(port)
+	if err != nil {
+		panic(err)
+	}
 
 }

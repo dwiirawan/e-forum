@@ -25,6 +25,13 @@
     },
     "tidy": {
       "executor": "@nx-go/nx-go:tidy"
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/api && air"
+      }
+
     }
   }
 }

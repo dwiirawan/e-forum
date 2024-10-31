@@ -2,7 +2,10 @@ package server
 
 import (
 	"fmt"
+	"gorm.io/gorm"
+	"libs/api-core/database"
 	"libs/api-core/middleware"
+	"libs/api-core/utils"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -10,10 +13,11 @@ import (
 type WebServer struct {
 	App           *fiber.App
 	Auth          *middleware.WebAuthManager
+	DB            *gorm.DB
 	RootApiPrefix string
 }
 
-func New(appName string, auth *middleware.WebAuthManager) *WebServer {
+func New(appName string, auth *middleware.WebAuthManager, env utils.Env) *WebServer {
 	app := fiber.New(fiber.Config{
 		Prefork:       true,
 		CaseSensitive: true,
@@ -22,9 +26,18 @@ func New(appName string, auth *middleware.WebAuthManager) *WebServer {
 		AppName:       appName,
 	})
 
+	db := database.ConnectDatabasePostgres(database.DBConfigGorm{
+		Port:     env.DB_PORT,
+		Host:     env.DB_HOST,
+		Password: env.DB_PASSWORD,
+		User:     env.DB_USER,
+		DBName:   env.DB_NAME,
+	})
+
 	return &WebServer{
 		App:  app,
 		Auth: auth,
+		DB:   db,
 	}
 }
 
