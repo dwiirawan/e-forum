@@ -2,7 +2,7 @@ package user
 
 import (
 	router "libs/api-core/features/user/routes"
-	server "libs/api-core/server"
+	"libs/api-core/server"
 )
 
 type UserModule struct{}

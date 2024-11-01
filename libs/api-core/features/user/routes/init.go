@@ -17,7 +17,7 @@ func New(server *server.WebServer) *Route {
 	route := Route{
 		server:  server,
 		router:  server.PublicApi("user"),
-		service: service.New(server.DB),
+		service: service.NewUserService(server.DB),
 	}
 	route.register()
 	return &route
