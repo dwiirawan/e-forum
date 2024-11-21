@@ -11,9 +11,7 @@ func (r *Route) registerUser(c *fiber.Ctx) error {
 	payload := new(auth.RegisterUserRequestDTO)
 
 	if err := c.BodyParser(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
+		return utils.NewError(fiber.StatusBadRequest, "E_BAD_REQUEST", "invalid request", err)
 	}
 
 	err := r.service.RegisterUser(payload)
