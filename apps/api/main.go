@@ -13,7 +13,7 @@ import (
 func main() {
 	listEnv := utils.LoadEnv(1)
 
-	client := common.NewBasicJwtAuth(listEnv.JWT_SECRET)
+	client := common.NewBasicJwtAuth()
 
 	webAuth := middleware.NewWebAuthManager(client, nil)
 

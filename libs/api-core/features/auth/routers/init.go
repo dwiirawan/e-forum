@@ -25,4 +25,5 @@ func New(server *server.WebServer) *Route {
 
 func (r *Route) register() {
 	r.router.Post("/register", r.registerUser)
+	r.router.Post("/login", r.login)
 }
