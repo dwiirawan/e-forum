@@ -1,6 +1,7 @@
 package server
 
 import (
+	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"libs/api-core/database"
@@ -24,6 +25,23 @@ func New(appName string, auth *middleware.WebAuthManager, env utils.Env) *WebSer
 		StrictRouting: true,
 		ServerHeader:  "Fiber",
 		AppName:       appName,
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			var errDto *utils.ErrorDto
+			if errors.As(err, &errDto) {
+				fmt.Printf("HTTP ERROR :%s", err.Error())
+				return c.Status(errDto.ErrCode).JSON(fiber.Map{
+					"code":    errDto.ErrCode,
+					"message": errDto.Message,
+					"part":    errDto.Part,
+				})
+			}
+			fmt.Printf("ERROR :%s", err.Error())
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"message": err.Error(),
+				"errCode": fiber.StatusInternalServerError,
+				"part":    "ERR_INTERNAL_SERVER_ERROR",
+			})
+		},
 	})
 
 	db := database.ConnectDatabasePostgres(database.DBConfigGorm{

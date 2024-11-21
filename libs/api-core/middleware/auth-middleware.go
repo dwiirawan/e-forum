@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"libs/api-core/utils"
 	"strings"
 
@@ -69,10 +70,10 @@ func (m WebAuthManager) AuthGuardMiddleware(ctx *fiber.Ctx) error {
 
 	user, err := m.client.GetUserFromToken(*token)
 	if err != nil {
-		if err == fiber.ErrUnauthorized {
+		if errors.Is(err, fiber.ErrUnauthorized) {
 			return err
 		}
-		return utils.NewError("WEB_AUTH_MANAGER_GetUserFromToken", err)
+		return utils.NewError(fiber.StatusUnauthorized, "ERR_UNAUTHORIZED", "Unauthorized", err)
 	}
 
 	ctx.Locals(USER_LOCAL_KEY, user)

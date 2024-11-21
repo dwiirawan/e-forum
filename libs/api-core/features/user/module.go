@@ -10,7 +10,3 @@ type UserModule struct{}
 func (*UserModule) Init(server *server.WebServer) {
 	router.New(server)
 }
-
-func Module() *UserModule {
-	return &UserModule{}
-}
