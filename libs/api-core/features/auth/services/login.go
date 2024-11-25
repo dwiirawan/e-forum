@@ -17,7 +17,14 @@ func (s *AuthService) Login(payload *dto.LoginRequestDTO) (res *dto.LoginRespons
 		return nil, utils.NewError(fiber.StatusUnauthorized, "E_UNAUTHORIZED", "invalid username or password", nil)
 	}
 
-	token, err := s.jwtAuth.GenerateToken(user)
+	userIdentity := &dto.UserIdentity{
+		ID:       user.ID.String(),
+		Username: user.Username,
+		Email:    user.Email,
+		IsActive: user.IsActive,
+	}
+
+	token, err := s.jwtAuth.GenerateToken(userIdentity)
 
 	if err != nil {
 		return nil, err

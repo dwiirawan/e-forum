@@ -1,7 +1,7 @@
 package auth
 
 import (
-	router "libs/api-core/features/auth/routers"
+	router "libs/api-core/features/auth/routes"
 	"libs/api-core/server"
 )
 

@@ -28,6 +28,7 @@ func (r *UserRepository) FindByEmailOrUsername(username string) (*models.UserMod
 	}
 	return &user, nil
 }
+
 func (r *UserRepository) Insert(err error, userModel models.UserModel) error {
 	err = r.DB.Model(userModel).Create(&userModel).Error
 
