@@ -24,5 +24,4 @@ func New(server *server.WebServer) *Route {
 
 func (r *Route) register() {
 	r.router.Get("/ping", r.ping)
-
 }

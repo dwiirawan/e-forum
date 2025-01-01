@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	auth "libs/api-core/features/auth/dto"
 	"libs/api-core/utils"
 	"strings"
 
@@ -114,9 +115,14 @@ func NewWebAuthManager(client WebAuthClient, opts *BearerTokenMiddlewareConfig) 
 	return &WebAuthManager{bearerTokenConfig: config, client: client}
 }
 
-func (m *WebAuthManager) User(ctx *fiber.Ctx) any {
+func (m *WebAuthManager) GetUser(ctx *fiber.Ctx) *auth.UserIdentity {
 
-	appUser := ctx.Locals(USER_LOCAL_KEY)
+	appUser := ctx.Locals(USER_LOCAL_KEY).(map[string]any)
 
-	return appUser
+	return &auth.UserIdentity{
+		ID:       appUser["id"].(string),
+		Username: appUser["username"].(string),
+		Email:    appUser["email"].(string),
+		IsActive: appUser["isActive"].(bool),
+	}
 }

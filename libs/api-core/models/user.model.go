@@ -13,6 +13,7 @@ type UserModel struct {
 	Hash      string    `gorm:"column:hash;type:varchar(255);" json:"hash"`
 	Salt      string    `gorm:"column:salt;type:varchar(255);" json:"salt"`
 	IsActive  bool      `gorm:"column:is_active;type:boolean;" json:"is_active"`
+	Picture   string    `gorm:"column:picture;type:varchar(255);" json:"picture"`
 	CreatedAt time.Time `gorm:"column:created_at;type:timestamp;" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at;type:timestamp;" json:"updated_at"`
 }

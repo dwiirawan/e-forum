@@ -1,8 +1,8 @@
 package auth
 
 type UserIdentity struct {
-	ID       string
-	Username string
-	Email    string
-	IsActive bool
+	ID       string `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	IsActive bool   `json:"isActive"`
 }
