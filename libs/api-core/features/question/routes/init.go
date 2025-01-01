@@ -1,9 +1,10 @@
-package question
+package router
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"libs/api-core/features/question/services"
 	"libs/api-core/server"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type Route struct {
@@ -24,4 +25,5 @@ func New(server *server.WebServer) *Route {
 
 func (r *Route) register() {
 	r.router.Post("", r.Create)
+	r.router.Get(":id", r.Get)
 }

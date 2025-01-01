@@ -1,9 +1,10 @@
-package question
+package router
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"libs/api-core/features/question/dto"
 	"libs/api-core/utils"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func (r *Route) Create(c *fiber.Ctx) error {
