@@ -1,12 +1,14 @@
 package services
 
 import (
+	"errors"
 	auth "libs/api-core/features/auth/dto"
 	"libs/api-core/features/question/dto"
 	"libs/api-core/models"
 	"libs/api-core/utils"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 func (s *QuestionService) Get(id string) (*dto.QuestionDetail, error) {
@@ -15,6 +17,11 @@ func (s *QuestionService) Get(id string) (*dto.QuestionDetail, error) {
 	}
 
 	if err := s.db.Joins("User").First(&question, question).Error; err != nil {
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, utils.NewError(fiber.StatusNotFound, "E_QUESTION_NOT_FOUND", "question not found", err)
+		}
+
 		return nil, utils.NewError(fiber.StatusInternalServerError, "E_GET_QUESTION", "failed to get detail question", err)
 	}
 

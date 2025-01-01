@@ -27,4 +27,6 @@ func (r *Route) register() {
 	r.router.Get("", r.List)
 	r.router.Post("", r.Create)
 	r.router.Get(":id", r.Get)
+	r.router.Put(":id", r.Update)
+	r.router.Delete(":id", r.Delete)
 }

@@ -26,6 +26,10 @@ func UpdatedResponse(ctx *fiber.Ctx, data *any) error {
 	return newSuccess(ctx, fiber.StatusOK, "Updated", data, nil)
 }
 
+func DeletedResponse(ctx *fiber.Ctx, data *any) error {
+	return newSuccess(ctx, fiber.StatusOK, "Deleted", data, nil)
+}
+
 func SuccessResponse(ctx *fiber.Ctx, data interface{}, meta any) error {
 	return newSuccess(ctx, fiber.StatusOK, "OK", data, meta)
 }
