@@ -9,22 +9,23 @@ type SuccessDto struct {
 	Meta    any    `json:"meta"`
 }
 
-func newSuccess(ctx *fiber.Ctx, statusCode int, msg string, data interface{}) error {
+func newSuccess(ctx *fiber.Ctx, statusCode int, msg string, data interface{}, meta any) error {
 	return ctx.Status(statusCode).JSON(&SuccessDto{
 		Code:    statusCode,
 		Message: msg,
 		Data:    data,
+		Meta:    meta,
 	})
 }
 
 func CreatedResponse(ctx *fiber.Ctx, data interface{}) error {
-	return newSuccess(ctx, fiber.StatusCreated, "Created", data)
+	return newSuccess(ctx, fiber.StatusCreated, "Created", data, nil)
 }
 
 func UpdatedResponse(ctx *fiber.Ctx, data *any) error {
-	return newSuccess(ctx, fiber.StatusOK, "Updated", data)
+	return newSuccess(ctx, fiber.StatusOK, "Updated", data, nil)
 }
 
-func SuccessResponse(ctx *fiber.Ctx, data interface{}) error {
-	return newSuccess(ctx, fiber.StatusOK, "OK", data)
+func SuccessResponse(ctx *fiber.Ctx, data interface{}, meta any) error {
+	return newSuccess(ctx, fiber.StatusOK, "OK", data, meta)
 }

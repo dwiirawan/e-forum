@@ -24,6 +24,7 @@ func New(server *server.WebServer) *Route {
 }
 
 func (r *Route) register() {
+	r.router.Get("", r.List)
 	r.router.Post("", r.Create)
 	r.router.Get(":id", r.Get)
 }

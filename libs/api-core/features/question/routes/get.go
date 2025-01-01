@@ -21,6 +21,6 @@ func (r *Route) Get(c *fiber.Ctx) error {
 		return err
 	}
 
-	return utils.SuccessResponse(c, res)
+	return utils.SuccessResponse(c, res, nil)
 
 }

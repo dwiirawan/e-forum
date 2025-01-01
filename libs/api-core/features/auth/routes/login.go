@@ -1,9 +1,10 @@
 package auth
 
 import (
-	"github.com/gofiber/fiber/v2"
 	dto "libs/api-core/features/auth/dto"
 	"libs/api-core/utils"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func (r *Route) login(c *fiber.Ctx) error {
@@ -16,5 +17,5 @@ func (r *Route) login(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-	return utils.SuccessResponse(c, res)
+	return utils.SuccessResponse(c, res, nil)
 }
