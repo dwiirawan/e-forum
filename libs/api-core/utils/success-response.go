@@ -22,7 +22,7 @@ func CreatedResponse(ctx *fiber.Ctx, data interface{}) error {
 	return newSuccess(ctx, fiber.StatusCreated, "Created", data, nil)
 }
 
-func UpdatedResponse(ctx *fiber.Ctx, data *any) error {
+func UpdatedResponse(ctx *fiber.Ctx, data interface{}) error {
 	return newSuccess(ctx, fiber.StatusOK, "Updated", data, nil)
 }
 

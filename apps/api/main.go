@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"libs/api-core/common"
+	"libs/api-core/features/answer"
 	"libs/api-core/features/auth"
 	"libs/api-core/features/ping"
 	"libs/api-core/features/question"
@@ -24,7 +25,7 @@ func main() {
 
 	apps.RootApiPrefix = "api/v1"
 
-	apps.UseModules(&user.UserModule{}, &auth.AuthModule{}, &ping.PingModule{}, &question.QuestionModule{})
+	apps.UseModules(&user.UserModule{}, &auth.AuthModule{}, &ping.PingModule{}, &question.QuestionModule{}, &answer.AnswerModule{})
 
 	// listen server
 	port := fmt.Sprintf(":%d", listEnv.APP_PORT)
