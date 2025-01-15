@@ -5,6 +5,7 @@ import (
 	"libs/api-core/common"
 	"libs/api-core/features/answer"
 	"libs/api-core/features/auth"
+	"libs/api-core/features/comment"
 	"libs/api-core/features/ping"
 	"libs/api-core/features/question"
 	"libs/api-core/features/user"
@@ -25,7 +26,7 @@ func main() {
 
 	apps.RootApiPrefix = "api/v1"
 
-	apps.UseModules(&user.UserModule{}, &auth.AuthModule{}, &ping.PingModule{}, &question.QuestionModule{}, &answer.AnswerModule{})
+	apps.UseModules(&user.UserModule{}, &auth.AuthModule{}, &ping.PingModule{}, &question.QuestionModule{}, &answer.AnswerModule{}, &comment.CommentModule{})
 
 	// listen server
 	port := fmt.Sprintf(":%d", listEnv.APP_PORT)

@@ -9,6 +9,7 @@ import (
 )
 
 func (s *AnswerService) Create(payload dto.AnswerCreate, userId string) (*string, error) {
+
 	answer := models.AnswerModel{
 		QuestionID: payload.QuestionID,
 		UserID:     userId,
