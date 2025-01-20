@@ -1,8 +1,8 @@
 {
-  "name": "apps/api",
+  "name": "apps/apps-migrator",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/api",
+  "sourceRoot": "apps/apps-migrator",
   "tags": [],
   "targets": {
     "build": {
@@ -25,13 +25,6 @@
     },
     "tidy": {
       "executor": "@nx-go/nx-go:tidy"
-    },
-    "dev": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "cd apps/api && air"
-      }
-
     }
   }
 }

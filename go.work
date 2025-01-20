@@ -3,5 +3,6 @@ go 1.23
 
 use (
 	./apps/api
+	./apps/apps-migrator
 	./libs/api-core
 )
