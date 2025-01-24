@@ -8,6 +8,7 @@ import (
 	"libs/api-core/features/comment"
 	"libs/api-core/features/ping"
 	"libs/api-core/features/question"
+	"libs/api-core/features/question_tag"
 	"libs/api-core/features/tag"
 	"libs/api-core/features/user"
 	"libs/api-core/middleware"
@@ -33,7 +34,8 @@ func main() {
 		&question.QuestionModule{},
 		&answer.AnswerModule{},
 		&comment.CommentModule{},
-		&tag.TagModule{})
+		&tag.TagModule{},
+		&question_tag.QuestionTagModule{})
 
 	// listen server
 	port := fmt.Sprintf(":%d", listEnv.APP_PORT)

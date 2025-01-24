@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"libs/api-core/features/question/dto"
 	"libs/api-core/models"
@@ -9,7 +8,7 @@ import (
 )
 
 func (s *QuestionService) Create(payload dto.QuestionCreate, userId string) error {
-	fmt.Println(userId, "<<<< IKIII")
+
 	question := models.QuestionModel{
 		Content: payload.Content,
 		Title:   payload.Title,
