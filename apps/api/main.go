@@ -11,6 +11,7 @@ import (
 	"libs/api-core/features/question_tag"
 	"libs/api-core/features/tag"
 	"libs/api-core/features/user"
+	"libs/api-core/features/vote"
 	"libs/api-core/middleware"
 	"libs/api-core/server"
 	"libs/api-core/utils"
@@ -35,7 +36,8 @@ func main() {
 		&answer.AnswerModule{},
 		&comment.CommentModule{},
 		&tag.TagModule{},
-		&question_tag.QuestionTagModule{})
+		&question_tag.QuestionTagModule{},
+		&vote.VoteModule{})
 
 	// listen server
 	port := fmt.Sprintf(":%d", listEnv.APP_PORT)

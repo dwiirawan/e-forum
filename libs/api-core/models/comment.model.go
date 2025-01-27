@@ -9,6 +9,7 @@ type CommentModel struct {
 	ParentID   string    `json:"parent_id" gorm:"column:parent_id;type:uuid;not null"`
 	UserID     string    `json:"user_id" gorm:"column:user_id;type:uuid;not null"`
 	CreatedAt  time.Time `json:"created_at" gorm:"column:created_at;type:datetime;not null"`
+	Votes      uint      `json:"votes" gorm:"type:int"`
 }
 
 func (CommentModel) TableName() string {
