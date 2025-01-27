@@ -3,6 +3,7 @@ package services
 import (
 	auth "libs/api-core/features/auth/dto"
 	"libs/api-core/features/question/dto"
+	tagDto "libs/api-core/features/tag/dto"
 	"libs/api-core/models"
 	"libs/api-core/utils"
 
@@ -13,7 +14,7 @@ func (s *QuestionService) List(req *dto.PaginationListQuestionRequest) ([]dto.Qu
 	var questions []models.QuestionModel
 	var totalData int64
 	offset := (req.Page - 1) * req.Limit
-	query := s.db.Model(&models.QuestionModel{}).Joins("User").Count(&totalData)
+	query := s.db.Model(&models.QuestionModel{}).Joins("User").Preload("QuestionTags").Preload("QuestionTags.Tag").Count(&totalData)
 
 	if req.Search != "" {
 		query = query.Where("title LIKE ?", "%"+req.Search+"%")
@@ -35,12 +36,20 @@ func (s *QuestionService) List(req *dto.PaginationListQuestionRequest) ([]dto.Qu
 	var data []dto.QuestionDetail
 
 	for _, question := range questions {
+
+		tags := make([]tagDto.Tag, len(question.QuestionTags))
+		for i, tag := range question.QuestionTags {
+			tags[i] = tagDto.Tag{ID: tag.Tag.ID, Name: tag.Tag.Name}
+		}
+
 		data = append(data, dto.QuestionDetail{
 			ID:        question.ID,
 			Title:     question.Title,
 			Content:   question.Content,
 			CreatedAt: question.CreatedAt,
 			UpdatedAt: question.UpdatedAt,
+			Votes:     question.Votes,
+			Tags:      tags,
 			User: auth.UserIdentity{
 				ID:       question.User.ID.String(),
 				Username: question.User.Username,

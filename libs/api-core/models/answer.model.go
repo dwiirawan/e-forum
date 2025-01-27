@@ -9,7 +9,7 @@ type AnswerModel struct {
 	QuestionID string        `json:"question_id" gorm:"type:uuid"`
 	UserID     string        `json:"user_id" gorm:"type:uuid"`
 	Content    string        `json:"content" gorm:"type:text"`
-	Votes      int           `json:"votes" gorm:"type:int;default:0"`
+	Votes      uint          `json:"votes" gorm:"type:int;default:0"`
 	CreatedAt  time.Time     `json:"created_at" gorm:"type:timestamp;autoCreateTime"`
 	UpdatedAt  time.Time     `json:"updated_at" gorm:"type:timestamp;autoUpdateTime"`
 	User       UserModel     `json:"user" gorm:"foreignKey:ID;references:UserID"`

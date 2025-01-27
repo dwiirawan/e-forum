@@ -18,5 +18,18 @@ func (s *QuestionService) Create(payload dto.QuestionCreate, userId string) erro
 	if err := s.db.Create(&question).Error; err != nil {
 		return utils.NewError(fiber.StatusInternalServerError, "E_CREATE_QUESTION", "failed to create question", err)
 	}
+
+	if len(payload.Tags) > 0 {
+		questionTagModels := make([]models.QuestionTagsModel, len(payload.Tags))
+		for i, tag := range payload.Tags {
+			questionTagModels[i] = models.QuestionTagsModel{
+				QuestionID: question.ID,
+				TagID:      tag,
+			}
+		}
+		if err := s.db.Create(&questionTagModels).Error; err != nil {
+			return utils.NewError(fiber.StatusInternalServerError, "E_CREATE_QUESTION_TAG", "failed to create question tag", err)
+		}
+	}
 	return nil
 }

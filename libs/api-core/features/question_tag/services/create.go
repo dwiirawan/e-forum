@@ -6,7 +6,7 @@ import (
 )
 
 func (a *QuestionTagService) Create(payload dto.CreateQuestionTagDto) error {
-	questionTag := models.QuestionTags{
+	questionTag := models.QuestionTagsModel{
 		QuestionID: payload.QuestionID,
 		TagID:      payload.TagID,
 	}

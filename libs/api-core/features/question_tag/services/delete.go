@@ -6,7 +6,7 @@ import (
 )
 
 func (a *QuestionTagService) Delete(questionTag dto.DeleteQuestionTagDto) error {
-	model := models.QuestionTags{
+	model := models.QuestionTagsModel{
 		QuestionID: questionTag.QuestionID,
 		TagID:      questionTag.TagID,
 	}
